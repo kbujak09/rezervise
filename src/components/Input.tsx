@@ -24,7 +24,7 @@ export default function Input ({ label, type, value, onChange }: InputProps) {
         value={value}
         onChange={onChange}
         autoComplete='off'
-        className='mx-5 p-2 text-[1.125rem] bg-gray-100 text-slate-900 border border-gray-400 rounded-md outline-slate-900 focus:outline-1'
+        className='mx-5 p-2 text-[1.125rem] bg-gray-50 text-slate-900 border border-gray-400 rounded-md outline-slate-900 focus:outline-1'
       />
     </div>
   )

@@ -2,7 +2,7 @@ import { type ChangeEvent, useState } from "react";
 
 import polishFlag from '../../../assets/Profile/poland.png';
 
-export default function ProfileInformation({user}: any) {
+export default function ProfileInformation({user, register}: any) {
   const [displayName, setDisplayName] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
 
@@ -21,7 +21,7 @@ export default function ProfileInformation({user}: any) {
         <label className='profile-data-label cursor-pointer' htmlFor="displayName">Wyświetlana Nazwa</label>
         <input
           id='displayName'
-          name='displayName'
+          {...register('displayName')}
           type="text"
           className='profile-data-input'
           onChange={handleDisplayNameChange}
@@ -63,7 +63,7 @@ export default function ProfileInformation({user}: any) {
           </div>
           <input
             id='phoneNumber'
-            name='phoneNumber'
+            {...register('phoneNumber')}
             type='tel'
             inputMode='numeric'
             value={phone}

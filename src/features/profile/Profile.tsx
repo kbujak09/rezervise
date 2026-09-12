@@ -15,7 +15,6 @@ export default function Profile() {
   const { loading, user } = useUser();
 
   const methods = useForm<ProfileInputs>();
-
   const { register, handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<ProfileInputs> = (data) => console.log(data);
@@ -34,16 +33,15 @@ export default function Profile() {
         <ProfilePictureEditor/>
         <ProfileInformation user={user} register={register}/>
         <WeeklySchedule/>
-        <div className='absolute grid grid-cols-2 items-center gap-6 right-12 -bottom-20'>
-          <button type='button' className='border border-gray-400 bg-gray-50 text-gray-600 px-4 py-3 rounded-sm cursor-pointer'>
+        <div className='absolute grid grid-cols-2 items-center gap-6 right-8 -bottom-14 text-[15px]'>
+          <button type='button' className='border border-gray-400 bg-gray-50 text-gray-600 px-3 py-2 rounded-sm cursor-pointer'>
             Odrzuć zmiany
           </button>
-          <button type='submit' className='border border-(--active-color) bg-(--active-color) text-white font-semibold px-4 py-3 rounded-sm cursor-pointer'>
+          <button type='submit' className='border border-purple-600 bg-(--active-color) text-gray-50 font-semibold px-3 py-2 rounded-sm cursor-pointer'>
             Zapisz zmiany
           </button>
         </div>
       </form>
-
     </FormProvider>
   )
 }

@@ -9,6 +9,12 @@ export const Route = createFileRoute('/panel')({
         to: '/logowanie'
       })
     }
+
+    if (location.pathname === '/panel') {
+      throw redirect({
+        to: '/panel/kalendarz'
+      })
+    }
   },
   component: PanelLayout
 })

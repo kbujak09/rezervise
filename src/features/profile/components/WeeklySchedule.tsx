@@ -29,7 +29,7 @@ export default function WeeklySchedule() {
 
   return (
     <div className='flex flex-col ml-4 h-fit'>
-      <div className='grid grid-rows-8 flex-1 items-center my-2 mx-4 py-3 px-6 shadow-[1px_1px_7px_1px_#ddd] rounded-md'>
+      <div className='grid grid-rows-8 flex-1 items-center my-2 mx-4 py-3 px-10 shadow-[1px_1px_7px_1px_#ddd] rounded-md'>
         <h1 className='font-semibold text-lg mb-1 border-b pb-3'>Godziny Otwarcia</h1>
         {
           week.map((day) => {

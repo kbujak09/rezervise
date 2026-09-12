@@ -1,3 +1,0 @@
-- [ ] Add toggle button for every day in week schedule
-- [ ] Add "from" time select for every day in week schedule
-- [ ] Add "to" time select for every day in week schedule

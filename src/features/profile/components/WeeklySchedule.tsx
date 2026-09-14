@@ -1,31 +1,14 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 import DayScheduleItem from "./DayScheduleItem.tsx";
 import type { DayOfTheWeekType } from "../types.ts";
 
-const week: DayOfTheWeekType[] = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
+const week: DayOfTheWeekType[] = ['poniedziałek', 'wtorek', 'środa', 'czwartek', 'piątek', 'sobota', 'niedziela'];
 
 export default function WeeklySchedule() {
-  const [openHours, setOpenHours] = useState<Record<string, boolean>>({
-    'Poniedziałek': false,
-    'Wtorek': false,
-    'Środa': false,
-    'Czwartek': false,
-    'Piątek': false,
-    'Sobota': false,
-    'Niedziela': false
-  });
-
   useEffect(() => {
     // implement fetching openHours
   }, []);
-
-  const handleIsOpenToggle = (day: DayOfTheWeekType, isChecked: boolean) => {
-    setOpenHours(prev => ({
-      ...prev,
-      [day]: isChecked
-    }));
-  }
 
   return (
     <div className='flex flex-col ml-4 h-fit'>
@@ -37,8 +20,6 @@ export default function WeeklySchedule() {
               <DayScheduleItem
                 key={day}
                 dayOfTheWeek={day}
-                isChecked={openHours[day] || false}
-                setIsChecked={(isChecked) => handleIsOpenToggle(day, isChecked)}
               />
             )
           })

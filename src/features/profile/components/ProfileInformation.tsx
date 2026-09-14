@@ -1,18 +1,14 @@
-import { type ChangeEvent, useState } from "react";
+import { type ChangeEvent } from "react";
 
 import polishFlag from '../../../assets/Profile/poland.png';
 
 export default function ProfileInformation({user, register}: any) {
-  const [displayName, setDisplayName] = useState<string>('');
-  const [phone, setPhone] = useState<string>('');
+  const { onChange, ...restRegister } = register('phoneNumber');
 
   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const onlyDigits = e.target.value.replace(/\D/g, '').slice(0, 9);
-    setPhone(onlyDigits);
-  }
+    e.target.value.replace(/\D/g, '').slice(0, 9);
 
-  const handleDisplayNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setDisplayName(e.target.value);
+    onChange(e);
   }
 
   return (
@@ -24,7 +20,6 @@ export default function ProfileInformation({user, register}: any) {
           {...register('displayName')}
           type="text"
           className='profile-data-input'
-          onChange={handleDisplayNameChange}
         />
       </div>
 
@@ -63,12 +58,11 @@ export default function ProfileInformation({user, register}: any) {
           </div>
           <input
             id='phoneNumber'
-            {...register('phoneNumber')}
             type='tel'
             inputMode='numeric'
-            value={phone}
             className='profile-data-input [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none flex-1 w-fit'
             maxLength={9}
+            {...restRegister}
             onChange={handlePhoneChange}
           />
         </div>

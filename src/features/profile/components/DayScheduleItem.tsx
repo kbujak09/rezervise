@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useFormContext, Controller } from 'react-hook-form';
+import { useFormContext, Controller, useWatch } from 'react-hook-form';
 
 import { Switch } from '@/components/ui/switch.tsx';
 import {
@@ -24,34 +24,36 @@ const hoursData = [
 
 interface Props {
   dayOfTheWeek: DayOfTheWeekType,
-  isChecked: boolean,
-  setIsChecked: (isChecked: boolean) => void;
 }
 
-export default function DayScheduleItem({ dayOfTheWeek, isChecked, setIsChecked }: Props) {
-  const [hours, setHours] = useState(hoursData);
+export default function DayScheduleItem({ dayOfTheWeek }: Props) {
+  const [hours] = useState(hoursData);
 
-  const { register, handleSubmit, control } = useFormContext();
+  const { control } = useFormContext();
+
+  const isOpen = useWatch({
+    control,
+    name: `schedule.${dayOfTheWeek}.isOpen`
+  })
 
   return (
     <div className='grid grid-cols-[12rem_1fr_12rem] py-2 items-center'>
-      <div className={`tracking-wide w-full italic ${!isChecked && 'text-gray-400'}`}>
+      <div className={`tracking-wide w-full italic capitalize ${!isOpen && 'text-gray-400'}`}>
         {dayOfTheWeek}
       </div>
       {
-        isChecked ?
+        isOpen ?
           <div className='flex gap-4 mx-8 h-10 items-center justify-center'>
             <div>
               <Controller
                 name={`schedule.${dayOfTheWeek}.from`}
                 control={control}
-                rules={{ required: true }}
                 defaultValue={'06:00'}
                 render={({ field }) => (
                   <Select
                     onValueChange={field.onChange}
                     value={field.value}
-                    disabled={!isChecked}
+                    disabled={!isOpen}
                   >
                     <SelectTrigger className='w-36 cursor-pointer'>
                       <SelectValue />
@@ -60,7 +62,7 @@ export default function DayScheduleItem({ dayOfTheWeek, isChecked, setIsChecked 
                       <SelectGroup>
                         {
                           hours.map((item) =>
-                            <SelectItem className='cursor-pointer' value={item}>{item}</SelectItem>
+                            <SelectItem className='cursor-pointer' key={item} value={item}>{item}</SelectItem>
                           )
                         }
                       </SelectGroup>
@@ -68,33 +70,17 @@ export default function DayScheduleItem({ dayOfTheWeek, isChecked, setIsChecked 
                   </Select>
                 )}
               />
-
-              {/*<Select defaultValue={'06:00'} disabled={!isChecked}>*/}
-              {/*  <SelectTrigger className='w-36 cursor-pointer'>*/}
-              {/*    <SelectValue />*/}
-              {/*  </SelectTrigger>*/}
-              {/*  <SelectContent className='max-h-48 overflow-y-auto' side='bottom' alignItemWithTrigger={false}>*/}
-              {/*    <SelectGroup>*/}
-              {/*      {*/}
-              {/*        hours.map((item) =>*/}
-              {/*          <SelectItem className='cursor-pointer' value={item}>{item}</SelectItem>*/}
-              {/*        )*/}
-              {/*      }*/}
-              {/*    </SelectGroup>*/}
-              {/*  </SelectContent>*/}
-              {/*</Select>*/}
             </div>
             <div>
               <Controller
                 name={`schedule.${dayOfTheWeek}.to`}
                 control={control}
-                rules={{ required: true }}
                 defaultValue='14:00'
                 render={({ field }) => (
                   <Select
                     onValueChange={field.onChange}
                     value={field.value}
-                    disabled={!isChecked}
+                    disabled={!isOpen}
                   >
                     <SelectTrigger className='w-36 cursor-pointer'>
                       <SelectValue />
@@ -111,28 +97,23 @@ export default function DayScheduleItem({ dayOfTheWeek, isChecked, setIsChecked 
                   </Select>
                 )}
               />
-
-              {/*<Select defaultValue={'14:00'} disabled={!isChecked}>*/}
-              {/*  <SelectTrigger className='w-36 cursor-pointer'>*/}
-              {/*    <SelectValue />*/}
-              {/*  </SelectTrigger>*/}
-              {/*  <SelectContent className='max-h-48 overflow-y-auto' side='bottom' alignItemWithTrigger={false}>*/}
-              {/*    <SelectGroup>*/}
-              {/*      {*/}
-              {/*        hours.map((item) =>*/}
-              {/*          <SelectItem className='cursor-pointer' value={item}>{item}</SelectItem>*/}
-              {/*        )*/}
-              {/*      }*/}
-              {/*    </SelectGroup>*/}
-              {/*  </SelectContent>*/}
-              {/*</Select>*/}
             </div>
           </div>
           :
-          <div className={`w-92 h-10 flex items-center justify-center ${!isChecked && 'text-gray-400'}`}>Zamknięte</div>
+          <div className={`w-92 h-10 flex items-center justify-center ${!isOpen && 'text-gray-400'}`}>Zamknięte</div>
       }
       <div className='flex items-center cursor-pointer justify-self-end'>
-        <Switch checked={isChecked} onCheckedChange={setIsChecked}/>
+        <Controller
+          name={`schedule.${dayOfTheWeek}.isOpen`}
+          control={control}
+          defaultValue={false}
+          render={({ field }) => (
+            <Switch
+              checked={field.value}
+              onCheckedChange={field.onChange}
+            />
+          )}
+        />
       </div>
     </div>
   )

@@ -39,7 +39,7 @@ export default function ProfilePictureEditor() {
               </label>
               :
               <button
-                className='px-4 py-1.5 border rounded-sm border-gray-500 bg-gray-200 text-black! cursor-pointer'
+                className='px-4 py-1.5 border rounded-sm border-gray-500 bg-gray-100 text-gray-700! font-medium cursor-pointer'
                 onClick={removeFile}
               >
               Odrzuć zmiany

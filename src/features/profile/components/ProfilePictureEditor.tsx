@@ -19,7 +19,7 @@ export default function ProfilePictureEditor() {
   const removeFile = () => setFile(undefined);
 
   return (
-    <div className='w-fit py-5 px-7 box-border relative min-w-0'>
+    <div className='w-fit pb-5 pr-5 box-border relative min-w-0'>
       <div className='text-center w-full box-border'>
         <div className='relative w-56 h-56 border-2 p-0.5 border-(--active-color) mb-5 overflow-hidden rounded-full'>
           <img

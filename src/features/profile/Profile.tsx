@@ -58,13 +58,13 @@ export default function Profile() {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))} className='relative w-fit flex flex-wrap bg-white rounded-sm shadow-sm box-border p-5'>
+      <form onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))} className='relative w-fit flex flex-wrap bg-white rounded-sm shadow-sm box-border p-9'>
         <ProfilePictureEditor/>
         <ProfileInformation user={user} register={register}/>
         <WeeklySchedule/>
          {
            isDirty && <div className='absolute grid grid-cols-2 items-center gap-6 right-8 -bottom-14 text-[15px]'>
-             <button type='button' className='border border-gray-300 bg-gray-100 text-gray-500 px-3 py-2 rounded-sm cursor-pointer'>
+             <button type='button' className='border border-gray-300 bg-gray-50 text-gray-600 px-3 py-2 rounded-sm cursor-pointer'>
                Odrzuć zmiany
              </button>
              <button type='submit' className='border border-purple-600 bg-(--active-color) text-gray-50 font-semibold px-3 py-2 rounded-sm cursor-pointer'>

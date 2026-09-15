@@ -12,7 +12,7 @@ export default function ProfileInformation({user, register}: any) {
   }
 
   return (
-    <div className='p-5'>
+    <div className='p-5 pt-0'>
       <div className='profile-data-container'>
         <label className='profile-data-label cursor-pointer' htmlFor="displayName">Wyświetlana Nazwa</label>
         <input

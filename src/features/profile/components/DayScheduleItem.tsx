@@ -48,7 +48,7 @@ export default function DayScheduleItem({ dayOfTheWeek }: Props) {
               <Controller
                 name={`schedule.${dayOfTheWeek}.from`}
                 control={control}
-                defaultValue={'06:00'}
+                defaultValue={undefined}
                 render={({ field }) => (
                   <Select
                     onValueChange={field.onChange}
@@ -75,7 +75,7 @@ export default function DayScheduleItem({ dayOfTheWeek }: Props) {
               <Controller
                 name={`schedule.${dayOfTheWeek}.to`}
                 control={control}
-                defaultValue='14:00'
+                defaultValue={undefined}
                 render={({ field }) => (
                   <Select
                     onValueChange={field.onChange}

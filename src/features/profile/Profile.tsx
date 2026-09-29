@@ -1,10 +1,12 @@
 import { useForm, FormProvider, type SubmitHandler } from "react-hook-form";
+import { useEffect, useState } from "react";
 
 import ProfilePictureEditor from "./components/ProfilePictureEditor.tsx";
 import useUser from '../../hooks/useUser.ts';
 import ProfileInformation from "./components/ProfileInformation.tsx";
 import Loading from "../../components/layouts/Loading.tsx";
 import WeeklySchedule from "./components/WeeklySchedule.tsx";
+import { supabase } from "@/lib/supabase.ts";
 
 interface DayInterface {
   isOpen: boolean,
@@ -27,6 +29,7 @@ interface ProfileInputs {
 }
 
 export default function Profile() {
+  const [profileData, setProfileData] = useState();
   const { loading, user } = useUser();
 
   const methods = useForm<ProfileInputs>({
@@ -47,6 +50,19 @@ export default function Profile() {
   const { register, handleSubmit, reset, formState: { isDirty } } = methods;
 
   const onSubmit: SubmitHandler<ProfileInputs> = (data) => console.log(data);
+
+  useEffect(() => {
+    const getUserData = async () => {
+      const { data, error } = await supabase
+          .from('profiles')
+          .select()
+          .eq('id', user.id)
+
+      return {data, error};
+    }
+
+    getUserData().then(({data, error}) => setProfileData(data));
+  }, [user]);
 
   if (loading) {
     return (

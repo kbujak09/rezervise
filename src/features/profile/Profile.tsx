@@ -8,6 +8,9 @@ import Loading from "../../components/layouts/Loading.tsx";
 import WeeklySchedule from "./components/WeeklySchedule.tsx";
 import { supabase } from "@/lib/supabase.ts";
 
+import closeSvg from '@/assets/Profile/close.svg';
+import checkSvg from "@/assets/Profile/check.svg";
+
 interface DayInterface {
   isOpen: boolean,
   from: string | undefined,
@@ -74,23 +77,27 @@ export default function Profile() {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))} className='relative w-fit flex flex-wrap bg-white rounded-sm shadow-sm box-border p-9'>
-        <ProfilePictureEditor/>
-        <ProfileInformation user={user} register={register}/>
-        <WeeklySchedule/>
+      <form onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))} className='w-fit flex flex-wrap flex-col bg-white rounded-sm shadow-sm box-border p-9'>
+        <div className='flex'>
+          <ProfilePictureEditor/>
+          <ProfileInformation user={user} register={register}/>
+          <WeeklySchedule/>
+        </div>
          {
-           isDirty && <div className='absolute grid grid-cols-2 items-center gap-6 right-8 -bottom-14 text-[15px]'>
+           isDirty && <div className='flex justify-end gap-6 text-[15px] pt-6'>
              <button
                type='button'
-               className='border border-gray-400 bg-gray-50 text-gray-700 px-3 py-2 rounded-sm cursor-pointer'
+               className='flex gap-3 border border-gray-400 bg-gray-50 opacity-50 px-3 py-2 rounded-sm cursor-pointer'
                onClick={() => reset()}
              >
+               <img src={closeSvg} alt='Odrzuć zmiany ikona' className='[filter:brightness(0)_saturate(100%)_invert(50%)_sepia(6%)_saturate(239%)_hue-rotate(212deg)_brightness(90%)_contrast(88%)] w-5'/>
                Odrzuć zmiany
              </button>
              <button
                type='submit'
-               className='border border-transparent bg-(--active-color) text-gray-50 px-3 py-2 rounded-sm cursor-pointer'
+               className='flex gap-3 border border-transparent bg-(--active-color) text-white opacity-85 font-semibold px-3 py-2 rounded-sm cursor-pointer'
              >
+               <img src={checkSvg} alt='Zapisz zmiany ikona' className='w-5'/>
                Zapisz zmiany
              </button>
           </div>

@@ -77,7 +77,7 @@ export default function Profile() {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))} className='w-fit flex flex-wrap flex-col bg-white rounded-sm shadow-sm box-border p-9'>
+      <form onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))} className='w-fit flex flex-wrap flex-col bg-white rounded-sm shadow-sm box-border py-6 px-9'>
         <div className='flex'>
           <ProfilePictureEditor/>
           <ProfileInformation user={user} register={register}/>

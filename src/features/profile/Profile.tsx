@@ -17,7 +17,7 @@ interface DayInterface {
   to: string | undefined
 }
 
-interface ProfileInputs {
+interface ProfileInterface {
   displayName: string
   phoneNumber: string,
   schedule: {
@@ -33,9 +33,9 @@ interface ProfileInputs {
 
 export default function Profile() {
   const [profileData, setProfileData] = useState();
-  const { loading, user } = useUser();
+  const { user } = useUser();
 
-  const methods = useForm<ProfileInputs>({
+  const methods = useForm<ProfileInterface>({
     defaultValues: {
       displayName: "",
       phoneNumber: "",
@@ -56,18 +56,28 @@ export default function Profile() {
 
   useEffect(() => {
     const getUserData = async () => {
+      if (!user || !user.id) return;
+
       const { data, error } = await supabase
           .from('profiles')
           .select()
           .eq('id', user.id)
+          .single()
 
-      return {data, error};
+      if (error) {
+        console.log("Błąd pobierania profilu:", error.message);
+        return;
+      }
+
+      if (data) {
+        setProfileData(data);
+      }
     }
 
-    getUserData().then(({data, error}) => setProfileData(data));
+    void getUserData();
   }, [user]);
 
-  if (loading) {
+  if (!profileData) {
     return (
       <div className='w-full h-full grow'>
         <Loading fullSize={false}/>
@@ -80,14 +90,14 @@ export default function Profile() {
       <form onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))} className='w-fit flex flex-wrap flex-col bg-white rounded-sm shadow-sm box-border py-6 px-9'>
         <div className='flex'>
           <ProfilePictureEditor/>
-          <ProfileInformation user={user} register={register}/>
+          <ProfileInformation profileData={profileData} register={register}/>
           <WeeklySchedule/>
         </div>
          {
            isDirty && <div className='flex justify-end gap-6 text-[15px] pt-6'>
              <button
                type='button'
-               className='flex gap-3 border border-gray-400 bg-gray-50 opacity-50 px-3 py-2 rounded-sm cursor-pointer'
+               className='flex gap-3 border border-gray-500 bg-gray-50 opacity-50 px-3 py-2 rounded-sm cursor-pointer'
                onClick={() => reset()}
              >
                <img src={closeSvg} alt='Odrzuć zmiany ikona' className='[filter:brightness(0)_saturate(100%)_invert(50%)_sepia(6%)_saturate(239%)_hue-rotate(212deg)_brightness(90%)_contrast(88%)] w-5'/>

@@ -2,7 +2,7 @@ import { type ChangeEvent } from "react";
 
 import polishFlag from '../../../assets/Profile/poland.png';
 
-export default function ProfileInformation({user, register}: any) {
+export default function ProfileInformation({profileData, register}: any) {
   const { onChange, ...restRegister } = register('phoneNumber');
 
   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -20,6 +20,7 @@ export default function ProfileInformation({user, register}: any) {
           {...register('displayName')}
           type="text"
           className='profile-data-input'
+          value={profileData.displayName}
         />
       </div>
 
@@ -29,7 +30,7 @@ export default function ProfileInformation({user, register}: any) {
           id='email'
           name='email'
           disabled
-          value={user.email}
+          value={profileData.email}
           type="text"
           className='profile-data-input text-gray-400 bg-gray-200'
         />
@@ -64,6 +65,7 @@ export default function ProfileInformation({user, register}: any) {
             maxLength={9}
             {...restRegister}
             onChange={handlePhoneChange}
+            value={profileData.phoneNumber}
           />
         </div>
       </div>

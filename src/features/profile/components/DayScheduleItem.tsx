@@ -38,7 +38,7 @@ export default function DayScheduleItem({ dayOfTheWeek }: Props) {
 
   return (
     <div className='grid grid-cols-[10rem_1fr_10rem] py-2 items-center'>
-      <div className={`tracking-wide w-full capitalize ${!isOpen && 'text-gray-400'}`}>
+      <div className={`tracking-wide w-full capitalize text-[17px] ${!isOpen && 'text-gray-500'}`}>
         {dayOfTheWeek}
       </div>
       {
@@ -100,7 +100,7 @@ export default function DayScheduleItem({ dayOfTheWeek }: Props) {
             </div>
           </div>
           :
-          <div className={`w-92 h-10 flex items-center justify-center ${!isOpen && 'text-gray-400'}`}>Zamknięte</div>
+          <div className={`w-92 h-10 flex items-center justify-center text-[17px] ${!isOpen && 'text-gray-400'}`}>Zamknięte</div>
       }
       <div className='flex items-center cursor-pointer justify-self-end'>
         <Controller

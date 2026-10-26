@@ -1,12 +1,15 @@
 import { type ChangeEvent } from "react";
+import { useFormContext } from "react-hook-form";
 
 import polishFlag from '../../../assets/Profile/poland.png';
 
-export default function ProfileInformation({profileData, register}: any) {
+export default function ProfileInformation() {
+  const { register, watch } = useFormContext();
+
   const { onChange, ...restRegister } = register('phoneNumber');
 
   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.target.value.replace(/\D/g, '').slice(0, 9);
+    e.target.value = e.target.value.replace(/\D/g, '').slice(0, 9);
 
     onChange(e);
   }
@@ -20,7 +23,6 @@ export default function ProfileInformation({profileData, register}: any) {
           {...register('displayName')}
           type="text"
           className='profile-data-input'
-          value={profileData.displayName}
         />
       </div>
 
@@ -30,7 +32,6 @@ export default function ProfileInformation({profileData, register}: any) {
           id='email'
           name='email'
           disabled
-          value={profileData.email}
           type="text"
           className='profile-data-input text-gray-400 bg-gray-200'
         />
@@ -65,7 +66,6 @@ export default function ProfileInformation({profileData, register}: any) {
             maxLength={9}
             {...restRegister}
             onChange={handlePhoneChange}
-            value={profileData.phoneNumber}
           />
         </div>
       </div>

@@ -16,9 +16,14 @@ const scheduleSchema = z.object({
   niedziela: daySchema,
 }).partial();
 
-const profileSchema = z.object({
+export const profileSchema = z.object({
   displayName: z.string(),
   phoneNumber: z.string().length(9),
-  openHours: scheduleSchema,
+  schedule: scheduleSchema,
 });
 
+export type ProfileData = z.infer<typeof profileSchema>;
+
+export function validateProfileData(data: unknown) {
+  return profileSchema.safeParse(data);
+}

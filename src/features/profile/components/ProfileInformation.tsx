@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 import polishFlag from '../../../assets/Profile/poland.png';
 
 export default function ProfileInformation() {
-  const { register, watch } = useFormContext();
+  const { register } = useFormContext();
 
   const { onChange, ...restRegister } = register('phoneNumber');
 
